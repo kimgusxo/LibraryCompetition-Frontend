@@ -12,16 +12,16 @@
 </template>
 
 <script setup lang="ts">
-import { useRouter } from 'vue-router';
+import { useRouter } from 'vue-router'
 
-const router = useRouter();
+const router = useRouter()
 
 const goToMemberPage = () => {
-  router.push({ path: '/member'});
-};
+  router.push({ path: '/member' })
+}
 
 const goToBookPage = () => {
-  router.push({ path: '/book'});
+  router.push({ path: '/book' })
 }
 </script>
 

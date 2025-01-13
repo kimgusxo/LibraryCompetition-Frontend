@@ -36,16 +36,16 @@ const route = useRoute()
 const member = ref(null)
 
 const fetchMemberDetails = async () => {
-  const id = route.query.id as string;
+  const id = route.query.id as string
   if (id) {
     try {
-      member.value = await store.dispatch('fetchMemberById', id);
-      await store.dispatch('fetchLoanRecordsByMemberId', id);
+      member.value = await store.dispatch('fetchMemberById', id)
+      await store.dispatch('fetchLoanRecordsByMemberId', id)
     } catch (error) {
-      console.error('Failed to fetch member details or loan records:', error);
+      console.error('Failed to fetch member details or loan records:', error)
     }
   } else {
-    console.error('No member ID found in route query parameters.');
+    console.error('No member ID found in route query parameters.')
   }
 }
 
@@ -113,7 +113,9 @@ onMounted(() => {
     padding: 10px;
   }
 
-  .left-column, .right-column, .bottom-row {
+  .left-column,
+  .right-column,
+  .bottom-row {
     gap: 8px;
   }
 }

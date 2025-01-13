@@ -23,13 +23,12 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
-
+import { defineProps } from 'vue'
 
 interface Book {
-  bookTitle?: string;
-  bookAuthor?: string;
-  bookLabel?: string;
+  bookTitle?: string
+  bookAuthor?: string
+  bookLabel?: string
 }
 
 const props = defineProps<{
@@ -55,20 +54,22 @@ const props = defineProps<{
   border-radius: 8px;
 }
 
-.book-details td, th, p {
+.book-details td,
+th,
+p {
   text-align: left;
   margin: 5px 0;
 }
 
 @media screen and (max-width: 768px) {
   .book-profile {
-      font-size: 0.875rem; /* Reduce font size for smaller screens */
+    font-size: 0.875rem; /* Reduce font size for smaller screens */
   }
 }
 
 @media screen and (max-width: 480px) {
   .book-profile {
-      font-size: 0.75rem; /* Further reduce font size for very small screens */
+    font-size: 0.75rem; /* Further reduce font size for very small screens */
   }
 }
 </style>
