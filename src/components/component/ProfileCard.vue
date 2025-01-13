@@ -8,10 +8,10 @@
             <th>NAME</th>
             <td>{{ member?.memberName }}</td>
           </tr>
-          <tr>
+          <!-- <tr>
             <th>AGE</th>
             <td>{{ member ? calculateAge(member.memberBirth) : 'N/A' }}</td>
-          </tr>
+          </tr> -->
           <tr>
             <th>BIRTHDAY</th>
             <td>{{ member?.memberBirth }}</td>
@@ -82,13 +82,13 @@ const calculateAge = (birthdate: string) => {
 
 @media screen and (max-width: 768px) {
   .profile-card {
-    font-size: 0.875rem; /* Reduce font size for smaller screens */
+    font-size: 0.875rem;
   }
 }
 
 @media screen and (max-width: 480px) {
   .profile-card {
-    font-size: 0.75rem; /* Further reduce font size for very small screens */
+    font-size: 0.75rem;
   }
 }
 </style>
