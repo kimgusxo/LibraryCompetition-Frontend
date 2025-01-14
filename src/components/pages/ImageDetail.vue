@@ -1,20 +1,33 @@
 <template>
   <div class="container">
-    <Sidebar class="sidebar"/>
+    <Sidebar class="sidebar" />
     <div class="main-content">
       <!-- 사용자 정의 파일 선택 버튼 -->
       <div class="file-upload-container">
         <label for="file-upload" class="file-upload-label">
           <span class="button-text">파일 선택</span>
         </label>
-        <input id="file-upload" type="file" @change="handleFiles" accept="image/*" multiple class="file-input"/>
+        <input
+          id="file-upload"
+          type="file"
+          @change="handleFiles"
+          accept="image/*"
+          multiple
+          class="file-input"
+        />
       </div>
-      
+
       <!-- 선택된 이미지 미리보기 -->
       <div class="image-preview">
-        <img v-for="(image, index) in imageList" :key="index" :src="image" :alt="'도서 표지 ' + (index + 1)" class="preview-image"/>
+        <img
+          v-for="(image, index) in imageList"
+          :key="index"
+          :src="image"
+          :alt="'도서 표지 ' + (index + 1)"
+          class="preview-image"
+        />
       </div>
-      
+
       <!-- 이미지 업로드 버튼 -->
       <div class="upload-button-container">
         <button @click="uploadImages" class="upload-button">이미지 등록</button>
@@ -25,51 +38,51 @@
 
 <script setup lang="ts">
 import Sidebar from '../component/Sidebar.vue'
-import { ref } from 'vue';
-import axios from 'axios';
+import { ref } from 'vue'
+import axios from 'axios'
 
-const imageList = ref<string[]>([]);
-const selectedFiles = ref<File[]>([]);
+const imageList = ref<string[]>([])
+const selectedFiles = ref<File[]>([])
 
 const handleFiles = (event: Event) => {
-  const files = (event.target as HTMLInputElement).files;
-  if (!files) return;
+  const files = (event.target as HTMLInputElement).files
+  if (!files) return
 
-  imageList.value = [];
-  selectedFiles.value = [];
+  imageList.value = []
+  selectedFiles.value = []
 
   for (let i = 0; i < files.length; i++) {
-    const file = files[i];
-    const reader = new FileReader();
+    const file = files[i]
+    const reader = new FileReader()
 
     reader.onload = (e) => {
       if (e.target?.result) {
-        imageList.value.push(e.target.result as string);
-        selectedFiles.value.push(file); // 선택된 파일 저장
+        imageList.value.push(e.target.result as string)
+        selectedFiles.value.push(file) // 선택된 파일 저장
       }
-    };
+    }
 
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(file)
   }
-};
+}
 
 const uploadImages = async () => {
-  const formData = new FormData();
-  selectedFiles.value.forEach(file => {
-    formData.append('images', file);
-  });
+  const formData = new FormData()
+  selectedFiles.value.forEach((file) => {
+    formData.append('images', file)
+  })
 
   try {
     const response = await axios.post('/imageForwarding/post', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
-    });
-    console.log('Upload successful:', response.data);
+    })
+    console.log('Upload successful:', response.data)
   } catch (error) {
-    console.error('Upload failed:', error);
+    console.error('Upload failed:', error)
   }
-};
+}
 </script>
 
 <style scoped>
@@ -101,7 +114,8 @@ const uploadImages = async () => {
   justify-content: center;
 }
 
-.file-upload-container, .upload-button-container {
+.file-upload-container,
+.upload-button-container {
   display: flex;
   justify-content: center;
 }
