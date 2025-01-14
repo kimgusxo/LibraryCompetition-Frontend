@@ -10,7 +10,7 @@
       </div>
       <div class="right-column">
         <div class="top-row">
-          <DamageRecords />
+          <DamageRecords :book="book" />
           <DamageDetails />
         </div>
         <div class="bottom-row">

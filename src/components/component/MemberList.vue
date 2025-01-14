@@ -1,6 +1,6 @@
 <template>
   <div class="member-list">
-    <h3>Members</h3>
+    <h3>사용자 리스트</h3>
     <div class="list-container">
       <table>
         <thead>
@@ -13,10 +13,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="member in members" 
-          :key="member.id" 
-          class="member-row"
-          @click="goToMemberDetail(member.memberId)"
+          <tr
+            v-for="member in members"
+            :key="member.id"
+            class="member-row"
+            @click="goToMemberDetail(member.memberId)"
           >
             <td>{{ member.memberName }}</td>
             <td>{{ member.memberBirth }}</td>
@@ -60,11 +61,11 @@ onMounted(() => {
 // 상태 클래스 결정
 const statusClass = (warning: string) => {
   switch (warning) {
-    case "정상":
+    case '정상':
       return '정상'
-    case "경고":
+    case '경고':
       return '경고'
-    case "위험":
+    case '위험':
       return '위험'
     default:
       return 'other'

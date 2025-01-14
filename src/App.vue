@@ -1,15 +1,9 @@
-<script setup>
-// import UserSearch from './components/pages/UserSearch.vue'
-
-</script>
+<script setup></script>
 
 <template>
-<div id="app">
-	<router-view></router-view>	
-</div>
-
-
+  <div id="app">
+    <router-view></router-view>
+  </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

@@ -1,8 +1,20 @@
 <template>
   <div class="damage-records">
-    <img src="./Book1.jpg" alt="Damaged Book" />
+    <img :src="book?.imgThumbnail" alt="Damaged Book" />
   </div>
 </template>
+
+<script setup lang="ts">
+import { defineProps } from 'vue'
+
+interface Book {
+  imgThumbnail?: string // imgThumbnail 속성 추가
+}
+
+const props = defineProps<{
+  book: Book | null // book이 null일 수 있도록 수정
+}>()
+</script>
 
 <style scoped>
 .damage-records {

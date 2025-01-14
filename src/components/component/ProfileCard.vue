@@ -1,6 +1,6 @@
 <template>
   <div class="profile-card">
-    <img src="./User1.jpg" alt="Profile" class="profile-image" />
+    <img :src="member?.memberImg" alt="Profile" class="profile-image" />
     <div class="info-text">
       <table>
         <tbody>
@@ -38,11 +38,12 @@
 import { defineProps } from 'vue'
 
 interface Member {
-  memberName?: string;
-  memberBirth?: string;
-  memberPhoneNumber?: string;
-  memberWarning?: string;
-  memberDamageCount?: number;
+  memberName?: string
+  memberBirth?: string
+  memberPhoneNumber?: string
+  memberWarning?: string
+  memberDamageCount?: number
+  memberImg?: string
 }
 
 const props = defineProps<{
@@ -75,7 +76,8 @@ const calculateAge = (birthdate: string) => {
   border-radius: 8px;
 }
 
-.info-text td, th {
+.info-text td,
+th {
   text-align: left;
   margin: 5px 0;
 }

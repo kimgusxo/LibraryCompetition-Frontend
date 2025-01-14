@@ -1,6 +1,6 @@
 <template>
   <div class="book-profile">
-    <img src="./Book1.jpg" alt="Book Cover" class="book-cover" />
+    <img :src="book?.imgThumbnail" alt="Book Cover" class="book-cover" />
     <div class="book-details">
       <table>
         <tbody>
@@ -29,6 +29,7 @@ interface Book {
   bookTitle?: string
   bookAuthor?: string
   bookLabel?: string
+  imgThumbnail?: string // imgThumbnail 속성 추가
 }
 
 const props = defineProps<{

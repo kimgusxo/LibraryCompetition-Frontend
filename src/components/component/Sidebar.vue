@@ -1,7 +1,7 @@
 <!-- Sidebar.vue -->
 <template>
   <aside class="sidebar">
-    <div class="logo">MyLibrary</div>
+    <div class="logo">Library Dashboard</div>
     <nav>
       <ul>
         <li class="nav-item" @click="goToMemberPage">사용자 정보</li>

@@ -1,6 +1,6 @@
 <template>
   <div class="book-list">
-    <h3>Books</h3>
+    <h3>도서 리스트</h3>
     <div class="list-container">
       <table>
         <thead>
@@ -19,8 +19,8 @@
             class="book-row"
             @click="goToBookDetail(book.bookId)"
           >
-          <td>{{ book.bookSequence }}</td>
-          <td>{{ book.bookTitle }}</td>
+            <td>{{ book.bookSequence }}</td>
+            <td>{{ book.bookTitle }}</td>
             <td>{{ book.bookAuthor }}</td>
             <td>{{ book.bookDamage }}</td>
             <td>{{ book.bookLabel }}</td>
@@ -55,7 +55,6 @@ const goToBookDetail = (bookId: number) => {
   router.push({ path: '/bookdetail', query: { id: bookId } })
 }
 
-
 // 컴포넌트가 마운트될 때 책 목록을 가져옴
 onMounted(() => {
   fetchBooks()
@@ -64,11 +63,11 @@ onMounted(() => {
 // 상태 클래스 결정
 const statusClass = (warning: string) => {
   switch (warning) {
-    case "정상":
+    case '정상':
       return '정상'
-    case "경고":
+    case '경고':
       return '경고'
-    case "위험":
+    case '위험':
       return '위험'
     default:
       return 'other'
