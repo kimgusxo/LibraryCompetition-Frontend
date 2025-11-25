@@ -7,6 +7,10 @@ import ImageDetail from '@/components/pages/ImageDetail.vue'
 
 const routes = [
   {
+    path: '/',
+    redirect: '/book'
+  },
+  {
     path: '/member',
     component: MemberSearch
   },

@@ -8,7 +8,6 @@ const axiosInstance = axios.create({
 
 const store = createStore({
   state: {
-    // Book 관련 상태
     book: {},
     bookId: {},
     bookSequence: {},
@@ -19,7 +18,6 @@ const store = createStore({
     bookLabel: {},
     bookList: [],
 
-    // Member 관련 상태
     member: {},
     memberId: {},
     memberName: {},
@@ -35,8 +33,6 @@ const store = createStore({
     returnTime: {},
     declaration: {},
     damageDegree: {},
-    memberId: {},
-    bookId: {},
     loanRecords: [],
     memberDamageRecords: []
   },
@@ -69,40 +65,40 @@ const store = createStore({
       return state.bookList.filter((book) => book.bookWarning === '위험')
     },
     getBadMemberList(state) {
-      return state.memberList.filter((member) => member.memberWarning === '위험');
+      return state.memberList.filter((member) => member.memberWarning === '위험')
     },
     getMemberWarningRatio(state) {
-      const total = state.memberList.length;
-      if (total === 0) return { safe: 0, warning: 0, danger: 0 };
-  
+      const total = state.memberList.length
+      if (total === 0) return { safe: 0, warning: 0, danger: 0 }
+
       const counts = {
-        safe: state.memberList.filter(member => member.memberWarning === '정상').length,
-        warning: state.memberList.filter(member => member.memberWarning === '경고').length,
-        danger: state.memberList.filter(member => member.memberWarning === '위험').length,
-      };
-  
+        safe: state.memberList.filter((member) => member.memberWarning === '정상').length,
+        warning: state.memberList.filter((member) => member.memberWarning === '경고').length,
+        danger: state.memberList.filter((member) => member.memberWarning === '위험').length
+      }
+
       return {
-        safe: (counts.safe / total * 100).toFixed(2),
-        warning: (counts.warning / total * 100).toFixed(2),
-        danger: (counts.danger / total * 100).toFixed(2),
-      };
+        safe: ((counts.safe / total) * 100).toFixed(2),
+        warning: ((counts.warning / total) * 100).toFixed(2),
+        danger: ((counts.danger / total) * 100).toFixed(2)
+      }
     },
     getBookWarningRatio(state) {
-      const total = state.bookList.length;
-      if (total === 0) return { safe: 0, warning: 0, danger: 0 };
-  
+      const total = state.bookList.length
+      if (total === 0) return { safe: 0, warning: 0, danger: 0 }
+
       const counts = {
-        safe: state.bookList.filter(book => book.bookWarning === '정상').length,
-        warning: state.bookList.filter(book => book.bookWarning === '경고').length,
-        danger: state.bookList.filter(book => book.bookWarning === '위험').length,
-      };
-  
+        safe: state.bookList.filter((book) => book.bookWarning === '정상').length,
+        warning: state.bookList.filter((book) => book.bookWarning === '경고').length,
+        danger: state.bookList.filter((book) => book.bookWarning === '위험').length
+      }
+
       return {
-        safe: (counts.safe / total * 100).toFixed(2),
-        warning: (counts.warning / total * 100).toFixed(2),
-        danger: (counts.danger / total * 100).toFixed(2),
-      };
-    },
+        safe: ((counts.safe / total) * 100).toFixed(2),
+        warning: ((counts.warning / total) * 100).toFixed(2),
+        danger: ((counts.danger / total) * 100).toFixed(2)
+      }
+    }
   },
 
   mutations: {
@@ -127,15 +123,13 @@ const store = createStore({
   },
 
   actions: {
-    fetchBooks({ commit }) {
-      axiosInstance
-        .get('/book/get/all')
-        .then((response) => {
-          commit('setBookList', response.data)
-        })
-        .catch((error) => {
-          alert(error.response?.data?.message || '책 목록을 가져오는 데 실패했습니다.')
-        })
+    async fetchBooks({ commit }) {
+      try {
+        const response = await axiosInstance.get('/books')
+        commit('setBookList', response.data)
+      } catch (error) {
+        alert(error.response?.data?.message || '책 목록을 가져오는 데 실패했습니다.')
+      }
     },
 
     async fetchBookById({ state, commit }, id) {
@@ -144,7 +138,7 @@ const store = createStore({
         if (book) {
           return book
         } else {
-          const response = await axiosInstance.get(`/book/get/${id}`)
+          const response = await axiosInstance.get(`/books/${id}`)
           commit('setBook', response.data)
           return response.data
         }
@@ -154,15 +148,13 @@ const store = createStore({
       }
     },
 
-    fetchMembers({ commit }) {
-      axiosInstance
-        .get('/member/get/all')
-        .then((response) => {
-          commit('setMemberList', response.data)
-        })
-        .catch((error) => {
-          alert(error.response?.data?.message || '회원 목록을 가져오는 데 실패했습니다.')
-        })
+    async fetchMembers({ commit }) {
+      try {
+        const response = await axiosInstance.get('/members')
+        commit('setMemberList', response.data)
+      } catch (error) {
+        alert(error.response?.data?.message || '회원 목록을 가져오는 데 실패했습니다.')
+      }
     },
 
     async fetchMemberById({ state, commit }, id) {
@@ -171,7 +163,7 @@ const store = createStore({
         if (member) {
           return member
         } else {
-          const response = await axiosInstance.get(`/member/get/${id}`)
+          const response = await axiosInstance.get(`/members/${id}`)
           commit('setMember', response.data)
           return response.data
         }
@@ -181,17 +173,11 @@ const store = createStore({
       }
     },
 
-    async fetchLoanRecords({ commit }, BookId) {
-      // axiosInstance
-      //   .get(`/loan/get/bookId/${id}`)
-      //   .then((response) => {
-      //     commit('setLoanRecords', response.data);
-      //   })
-      //   .catch((error) => {
-      //     alert(error.response?.data?.message || '대출 기록을 가져오는 데 실패했습니다.');
-      //   });
+    async fetchLoanRecords({ commit }, bookId) {
       try {
-        const response = await axiosInstance.get(`/loan/get/bookId/${BookId}`)
+        const response = await axiosInstance.get('/loans/bookId', {
+          params: { bookId }
+        })
         commit('setLoanRecords', response.data)
       } catch (error) {
         alert(error.response?.data?.message || '대출 기록을 가져오는 데 실패했습니다.')
@@ -200,19 +186,12 @@ const store = createStore({
 
     async fetchLoanRecordsByMemberId({ commit }, memberId) {
       try {
-        const response = await axiosInstance.get(`/loan/get/memberId/${memberId}`)
+        const response = await axiosInstance.get('/loans/memberId', {
+          params: { memberId }
+        })
         commit('setLoanRecords', response.data)
       } catch (error) {
         console.error('Failed to fetch loan records:', error)
-      }
-    },
-
-    async fetchMembers({ commit }) {
-      try {
-        const response = await axiosInstance.get('/member/get/all')
-        commit('setMemberList', response.data)
-      } catch (error) {
-        alert(error.response?.data?.message || '회원 목록을 가져오는 데 실패했습니다.')
       }
     }
   }
